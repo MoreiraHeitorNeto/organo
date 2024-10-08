@@ -4,23 +4,23 @@ import CampoTexto from '../CampoTexto'
 import ListaSuspensa from '../ListaSuspensa'
 import './Formulario.css'
 
-const Formulario = () => {
-    const times = [
-        'point guard (PG)',
-        'shooting guard (SG)',
-        'small forward (SF)',
-        'power forward (PF)',
-        'center (C)'
-    ]
+const Formulario = (props) => {
+
 
     const [nome, setNome] = useState('')
     const [cargo, setCargo] = useState('')
     const [imagem, setImagem] = useState('')
-    const [posicao, setPosicao] = useState('')
+    const [time, setTime] = useState('')
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
-        console.log('Form foi submetido => ', nome, cargo, imagem)
+        props.aoColaboradorCadastrado({
+            nome,
+            cargo,
+            imagem,
+            time
+        })
+        console.log('Form foi submetido => ', nome, cargo, imagem, time)
     }
 
     return (
@@ -49,10 +49,10 @@ const Formulario = () => {
                 />
                 <ListaSuspensa 
                     obrigatorio={true} 
-                    label="Posição" 
-                    itens={times}
-                    valor={posicao}
-                    aoAlterado={valor => setPosicao(valor)}
+                    label="Time" 
+                    itens={props.times}
+                    valor={time}
+                    aoAlterado={valor => setTime(valor)}
                 />
                 <Botao>
                     Criar card
